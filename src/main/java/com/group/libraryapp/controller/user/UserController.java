@@ -1,32 +1,46 @@
 package com.group.libraryapp.controller.user;
 
-import com.group.libraryapp.domain.User;
 import com.group.libraryapp.dto.user.request.UserCreateRequest;
+import com.group.libraryapp.dto.user.request.UserUpdatRequest;
 import com.group.libraryapp.dto.user.response.UserResponse;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import com.group.libraryapp.service.friut.FruitService;
+import com.group.libraryapp.service.user.UserService;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
-@RestController
+@RestController //스프링 빈이 됨. 즉 jdbc에 의존하게됨
 public class UserController {
 
-    private final List<User> users= new ArrayList<>();
+    private final UserService userService ;
+    private final FruitService fruitService;
+
+    //@Quailifier("main")가 primary보다 더 앞선다.
+    public UserController(UserService userService, @Qualifier("main") FruitService fruitService){
+        this.userService = userService;
+        this.fruitService = fruitService;
+    }
 
     @PostMapping("/user")
     public void saveUser(@RequestBody UserCreateRequest request){
-        users.add(new User(request.getName(), request.getAge()));
+       userService.saveUser(request);
     }
 
     @GetMapping("/user")
     public List<UserResponse> getUsers(){
-    List<UserResponse> responses = new ArrayList<>();
-    for(int i = 0; i < users.size(); i++){
-        responses.add(new UserResponse(i+1, users.get(i)));
+    return userService.getUsers();
     }
-    return responses;
+
+     @PutMapping("/user")
+     public void updateUser(@RequestBody UserUpdatRequest request){
+        userService.updateUser(request);
     }
+
+     @DeleteMapping("/user")
+     public void deleteUser(@RequestParam String name) { //query를 직접 사용해서 포스트맨으로 찾음 그래서 requestbody가 아니라 param을 씀userService.deleteUser(name);
+        userService.deleteUser(name );
+    }
+
+
 }
