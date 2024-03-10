@@ -1,5 +1,5 @@
-package com.group.libraryapp.service.friut;
-
-public interface FruitService {
-
-}
+//package com.group.libraryapp.service.friut;
+//
+//public interface FruitService {
+//
+//}

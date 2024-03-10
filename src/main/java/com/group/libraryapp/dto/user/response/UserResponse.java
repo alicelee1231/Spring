@@ -14,6 +14,12 @@ public class UserResponse {
         this.age = age;
     }
 
+    public UserResponse(User user){
+        this.id = user.getId();
+        this.name = user.getName();
+        this.id = user.getId();
+    }
+
     public UserResponse(long id, User user){
         this.id = id;
         this.name = user.getName();

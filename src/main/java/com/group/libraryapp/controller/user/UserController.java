@@ -3,9 +3,7 @@ package com.group.libraryapp.controller.user;
 import com.group.libraryapp.dto.user.request.UserCreateRequest;
 import com.group.libraryapp.dto.user.request.UserUpdatRequest;
 import com.group.libraryapp.dto.user.response.UserResponse;
-import com.group.libraryapp.service.friut.FruitService;
-import com.group.libraryapp.service.user.UserService;
-import org.springframework.beans.factory.annotation.Qualifier;
+import com.group.libraryapp.service.user.UserServiceV2;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,13 +11,11 @@ import java.util.List;
 @RestController //스프링 빈이 됨. 즉 jdbc에 의존하게됨
 public class UserController {
 
-    private final UserService userService ;
-    private final FruitService fruitService;
+    private final UserServiceV2 userService ;
 
     //@Quailifier("main")가 primary보다 더 앞선다.
-    public UserController(UserService userService, @Qualifier("main") FruitService fruitService){
+    public UserController(UserServiceV2 userService){
         this.userService = userService;
-        this.fruitService = fruitService;
     }
 
     @PostMapping("/user")
