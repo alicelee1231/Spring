@@ -1,6 +1,6 @@
 package com.group.libraryapp.dto.user.request;
 
-public class UserUpdatRequest {
+public class UserUpdateRequest {
     private Long id;
     private String name;
 
