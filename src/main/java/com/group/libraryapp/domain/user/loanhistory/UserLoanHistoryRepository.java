@@ -8,5 +8,5 @@ public interface UserLoanHistoryRepository extends JpaRepository<UserLoanHistory
 
     //select * from user_loan_history where book_name =? and is_return = ?
     //위의 sql문과 아래가 동일함
-    boolean existByBookNameAndIsReturn(String bookName, boolean isReturn);
+    boolean existsByBookNameAndIsReturn(String bookName, boolean isReturn);
 }
